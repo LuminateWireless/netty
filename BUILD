@@ -3,6 +3,10 @@ package(default_visibility = ['//visibility:public'])
 
 java_library(
   name = 'buffer',
+  javacopts = [
+    '-Xlint:none',
+    '-extra_checks:off',
+  ],
   srcs = glob([
     'buffer/src/main/**/*.java'
   ]),
@@ -156,10 +160,26 @@ java_library(
   srcs = glob([
     'transport/src/main/**/*.java'
   ]),
+  javacopts = [
+    '-extra_checks:off',
+  ],
   deps = [
     ':buffer',
     ':common',
     ':resolver',
+  ],
+)
+
+java_library(
+  name = 'transport-native-epoll',
+  srcs = glob([
+    'transport-native-epoll/src/main/**/*.java'
+  ]),
+  deps = [
+    ':buffer',
+    ':common',
+    ':resolver',
+    ':transport',
   ],
 )
 
