@@ -1,0 +1,10 @@
+URL: http://netty.io/
+Version: 4.1 from github, commit id: ef13d19b8b5d876463d4365b76d3046410a7811a
+
+Description:
+
+Netty is an asynchronous event-driven network application framework
+for rapid development of maintainable high performance protocol servers & clients.
+
+Local Modifications:
+Create BUILD file to build with bazel.

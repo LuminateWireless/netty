@@ -45,6 +45,7 @@ public final class EpollServerDomainSocketChannel extends AbstractEpollServerCha
      * @deprecated Use {@link #EpollServerDomainSocketChannel(Socket, boolean)}.
      * Creates a new {@link EpollServerDomainSocketChannel} from an existing {@link FileDescriptor}.
      */
+    @Deprecated
     public EpollServerDomainSocketChannel(FileDescriptor fd) {
         super(fd);
     }
@@ -52,6 +53,7 @@ public final class EpollServerDomainSocketChannel extends AbstractEpollServerCha
     /**
      * @deprecated Use {@link #EpollServerDomainSocketChannel(Socket, boolean)}.
      */
+    @Deprecated
     public EpollServerDomainSocketChannel(Socket fd) {
         super(fd);
     }

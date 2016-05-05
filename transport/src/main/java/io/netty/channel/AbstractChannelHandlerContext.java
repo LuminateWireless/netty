@@ -21,11 +21,14 @@ import io.netty.util.AttributeKey;
 import io.netty.util.ResourceLeakHint;
 import io.netty.util.concurrent.EventExecutor;
 import io.netty.util.internal.StringUtil;
+import io.netty.util.internal.logging.InternalLogger;
+import io.netty.util.internal.logging.InternalLoggerFactory;
 
 import java.net.SocketAddress;
 
 abstract class AbstractChannelHandlerContext implements ChannelHandlerContext, ResourceLeakHint {
 
+    private static final InternalLogger logger = InternalLoggerFactory.getInstance(AbstractChannelHandlerContext.class);
     volatile AbstractChannelHandlerContext next;
     volatile AbstractChannelHandlerContext prev;
 
@@ -141,7 +144,9 @@ abstract class AbstractChannelHandlerContext implements ChannelHandlerContext, R
 
     @Override
     public ChannelHandlerContext fireChannelRead(Object msg) {
+        logger.info("Begin fireChannelRead, " + this.toString());  // help to debug https://trac.corp.luminatewireless.com/ticket/1726
         AbstractChannelHandlerContext next = findContextInbound();
+        logger.info("Next Handler: " + next.toString());  // help to debug https://trac.corp.luminatewireless.com/ticket/1726
         next.invokeChannelRead(pipeline.touch(msg, next));
         return this;
     }
