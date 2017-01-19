@@ -230,10 +230,8 @@ public class ServerBootstrap extends AbstractBootstrap<ServerBootstrap, ServerCh
         @Override
         @SuppressWarnings("unchecked")
         public void channelRead(ChannelHandlerContext ctx, Object msg) {
-            logger.info("ServerBootstrapAcceptor.channelRead start");  // help to debug https://trac.corp.luminatewireless.com/ticket/1726
             final Channel child = (Channel) msg;
-            logger.info("ServerBootstrapAcceptor.channelRead " + child.toString());  // help to debug https://trac.corp.luminatewireless.com/ticket/1726
-            
+
             child.pipeline().addLast(childHandler);
 
             for (Entry<ChannelOption<?>, Object> e: childOptions) {
@@ -246,13 +244,10 @@ public class ServerBootstrap extends AbstractBootstrap<ServerBootstrap, ServerCh
                 }
             }
 
-            logger.info("Before childAttrs " + child.toString());  // help to debug https://trac.corp.luminatewireless.com/ticket/1726
-                        
             for (Entry<AttributeKey<?>, Object> e: childAttrs) {
                 child.attr((AttributeKey<Object>) e.getKey()).set(e.getValue());
             }
 
-            logger.info("Before register " + child.toString());  // help to debug https://trac.corp.luminatewireless.com/ticket/1726
             try {
                 childGroup.register(child).addListener(new ChannelFutureListener() {
                     @Override
@@ -265,7 +260,6 @@ public class ServerBootstrap extends AbstractBootstrap<ServerBootstrap, ServerCh
             } catch (Throwable t) {
                 forceClose(child, t);
             }
-            logger.info("Exit ServerBootstrapAcceptor.channelRead" + child.toString());  // help to debug https://trac.corp.luminatewireless.com/ticket/1726
         }
 
         private static void forceClose(Channel child, Throwable t) {
@@ -275,7 +269,6 @@ public class ServerBootstrap extends AbstractBootstrap<ServerBootstrap, ServerCh
 
         @Override
         public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-            logger.warn("ServerBootstrapAcceptor exceptionCaught, " + ctx.toString(), cause);
             final ChannelConfig config = ctx.channel().config();
             if (config.isAutoRead()) {
                 // stop accept new connections for 1 second to allow the channel to recover

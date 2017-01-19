@@ -230,7 +230,6 @@ public class LoggingHandler extends ChannelDuplexHandler {
         if (logger.isEnabled(internalLevel)) {
             logger.log(internalLevel, format(ctx, "RECEIVED", msg));
         }
-        logger.info("LoggingHandler: " + ctx.toString());  // help to debug https://trac.corp.luminatewireless.com/ticket/1726
         ctx.fireChannelRead(msg);
     }
 
