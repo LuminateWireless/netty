@@ -29,6 +29,11 @@ java_library(
     # net.jpountz.lz4
     'codec/src/main/java/io/netty/handler/codec/compression/Lz4*.java',
   ]),
+  # FastLz.java:217: error: [IdentityBinaryExpression] Writing `a ||
+  # a` is equivalent to `a`
+  javacopts = [
+    '-extra_checks:off',
+  ],
   deps = [
     ':buffer',
     ':common',
@@ -133,6 +138,12 @@ java_library(
     'handler/src/main/java/io/netty/handler/ssl/util/Bouncy*.java',
     'handler/src/main/java/io/netty/handler/ssl/util/*SelfSign*.java',
   ]),
+  # SslContext.java:881: error: [InsecureCipherMode] Insecure usage of
+  # Cipher.getInstance(): the transformation is not a compile-time
+  # constant expression.
+  javacopts = [
+    '-extra_checks:off',
+  ],
   deps = [
     ':buffer',
     ':codec',
